@@ -1,0 +1,40 @@
+public class Visitor extends Person {
+    // Private unique variables
+    private String visitorId;     // Unique ID of tourist
+    private String membershipType;// Membership Type
+
+    // 1. Default constructor
+    public Visitor() {
+        super();
+    }
+
+    // 2. Constructor with parameters: parent class property+subclass property
+    public Visitor(String personId, String name, int age, String visitorId, String membershipType) {
+        super(personId, name, age);
+        this.visitorId = visitorId;
+        this.membershipType = membershipType;
+    }
+
+    // 3. Getter/Setter
+    public String getVisitorId() {
+        return visitorId;
+    }
+
+    public void setVisitorId(String visitorId) {
+        this.visitorId = visitorId;
+    }
+
+    public String getMembershipType() {
+        return membershipType;
+    }
+
+    public void setMembershipType(String membershipType) {
+        this.membershipType = membershipType;
+    }
+
+    // Rewrite toString()
+    @Override
+    public String toString() {
+        return "Visitor{" + super.toString() + ", visitorId='" + visitorId + "', membershipType='" + membershipType + "'}";
+    }
+}
