@@ -1,0 +1,25 @@
+public class AssignmentTwo {
+    // Main method: Program entrance
+    public static void main(String[] args) {
+        System.out.println("=== PRVMS Theme Park Management System ===");
+        // We will add demonstration code to the corresponding part method every day in the future.
+    }
+
+    // Part3 Waiting queue demonstration method
+    public void partThree() {}
+
+    // Part4A Demonstration Method for Riding Record
+    public void partFourA() {}
+
+    // Part4B Demonstration method for sorting ride records
+    public void partFourB() {}
+
+    // Part5 Demonstration method for operating amusement equipment cycle
+    public void partFive() {}
+
+    // Part6 Demonstration method for exporting ride records
+    public void partSix() {}
+
+    // Part7 Demonstration method for importing ride records
+    public void partSeven() {}
+}
