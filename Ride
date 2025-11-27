@@ -1,0 +1,75 @@
+public class Ride {
+    // private variable
+    private String rideId;       // Unique ID of the facility
+    private String rideName;     // Facility Name
+    private int maxRider;        // Maximum passenger capacity per trip
+    private Employee operator;   // operator
+    private int numOfCycles;     // Number of cycles already run
+
+    // 1. Default constructor
+    public Ride() {
+        this.numOfCycles = 0; // The default number of cycles is 0 (initialization state)
+    }
+
+    // 2. Constructor with parameters: Initialize all core properties
+    public Ride(String rideId, String rideName, int maxRider, Employee operator) {
+        this.rideId = rideId;
+        this.rideName = rideName;
+        this.maxRider = maxRider;
+        this.operator = operator;
+        this.numOfCycles = 0; // Explicit initialization to avoid forgetting
+    }
+
+    // 3. Getter/Setter
+    public String getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(String rideId) {
+        this.rideId = rideId;
+    }
+
+    public String getRideName() {
+        return rideName;
+    }
+
+    public void setRideName(String rideName) {
+        this.rideName = rideName;
+    }
+
+    public int getMaxRider() {
+        return maxRider;
+    }
+
+    public void setMaxRider(int maxRider) {
+        // Data verification: At least one passenger capacity per trip
+        if (maxRider >= 1) {
+            this.maxRider = maxRider;
+        } else {
+            System.out.println("Error: Single passenger capacity cannot be less than 1 person!");
+        }
+    }
+
+    public Employee getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Employee operator) {
+        this.operator = operator;
+    }
+
+    public int getNumOfCycles() {
+        return numOfCycles;
+    }
+
+    // NumOfCycles can only be increased through runtime cycles and does not provide setters (encapsulation: control modification logic)
+    public void incrementCycles() {
+        this.numOfCycles++;
+    }
+
+    // Rewrite toString()
+    @Override
+    public String toString() {
+        return "Ride{rideId='" + rideId + "', rideName='" + rideName + "', maxRider=" + maxRider + ", operator=" + operator + ", numOfCycles=" + numOfCycles + "}";
+    }
+}
