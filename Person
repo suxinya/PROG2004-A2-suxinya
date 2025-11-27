@@ -1,0 +1,52 @@
+public class Person {
+    // Private variables: encapsulation
+    private String personId;
+    private String name;
+    private int age;
+
+    // 1. Default constructor: Meets JavaBean specification
+    public Person() {}
+
+    // 2. Constructor with parameters: Initialize all common properties
+    public Person(String personId, String name, int age) {
+        this.personId = personId;
+        this.name = name;
+        this.age = age;
+    }
+
+    // 3. Getter/Setter: Accessors and Modifiers for All Variables
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        // Data validation: Age cannot be negative
+        if (age >= 0) {
+            this.age = age;
+        } else {
+            System.out.println("Error: Age cannot be negative!");
+        }
+    }
+
+    // Rewrite toString(): Display detailed information when printing objects
+    @Override
+    public String toString() {
+        return "Person{personId='" + personId + "', name='" + name + "', age=" + age + "}";
+    }
+}
