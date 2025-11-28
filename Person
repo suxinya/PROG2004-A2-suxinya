@@ -1,4 +1,4 @@
-public class Person {
+public abstract class Person {
     // Private variables: encapsulation
     private String personId;
     private String name;
@@ -49,4 +49,5 @@ public class Person {
     public String toString() {
         return "Person{personId='" + personId + "', name='" + name + "', age=" + age + "}";
     }
+    public abstract void showInfo();
 }
