@@ -1,4 +1,7 @@
-public class Ride {
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+public abstract class Ride implements RideInterface {
     // private variable
     private String rideId;       // Unique ID of the facility
     private String rideName;     // Facility Name
@@ -6,9 +9,16 @@ public class Ride {
     private Employee operator;   // operator
     private int numOfCycles;     // Number of cycles already run
 
+    // New: Part 3 Waiting Queue (using LinkedRist to implement Queue interface, FIFO feature)
+    private Queue<Visitor> waitingLine;
+    // New: Part 4A ride records (using LinkedList, supporting Iterator traversal)
+    private LinkedList<Visitor> rideHistory;
+
     // 1. Default constructor
     public Ride() {
         this.numOfCycles = 0; // The default number of cycles is 0 (initialization state)
+        this.waitingLine = new LinkedList<>(); // Initialize queue
+        this.rideHistory = new LinkedList<>(); // Initialize ride record
     }
 
     // 2. Constructor with parameters: Initialize all core properties
@@ -18,6 +28,8 @@ public class Ride {
         this.maxRider = maxRider;
         this.operator = operator;
         this.numOfCycles = 0; // Explicit initialization to avoid forgetting
+        this.waitingLine = new LinkedList<>();
+        this.rideHistory = new LinkedList<>();
     }
 
     // 3. Getter/Setter
@@ -67,9 +79,81 @@ public class Ride {
         this.numOfCycles++;
     }
 
-    // Rewrite toString()
+    // ------------------------------
+    // Method for implementing RideInterface (occupying space, followed by 3-5 days of filling logic)
+    // ------------------------------
+
+    // Part 3: Add tourists to the queue
+    @Override
+    public boolean addVisitorToQueue(Visitor visitor) {
+        //Implemented on the third day
+        return false;
+    }
+
+    // Part 3: Removing Tourists from the Queue
+    @Override
+    public Visitor removeVisitorFromQueue() {
+        // Implemented on the third day
+        return null;
+    }
+
+    // Part 3: Printing queue
+    @Override
+    public void printQueue() {
+        // Implemented on the third day
+    }
+
+    // Part 4A: Add tourist to ride history
+    @Override
+    public boolean addVisitorToHistory(Visitor visitor) {
+        // Realized on the fourth day
+        return false;
+    }
+
+    // Part 4A: Check if the tourist is in the ride record
+    @Override
+    public boolean checkVisitorFromHistory(Visitor visitor) {
+        // Realized on the fourth day
+        return false;
+    }
+
+    // Part 4A: Number of Returned Passengers Recorded
+    @Override
+    public int numberOfVisitors() {
+        // Realized on the fourth day
+        return 0;
+    }
+
+    // Part 4A: Printing ride records
+    @Override
+    public void printRideHistory() {
+        // Realized on the fourth day
+    }
+
+    // Part 5: Run a cycle once
+    @Override
+    public void runOneCycle() {
+        // Implemented on the fifth day
+    }
+
+    // Original toString(): Add the size of the queue and records
     @Override
     public String toString() {
-        return "Ride{rideId='" + rideId + "', rideName='" + rideName + "', maxRider=" + maxRider + ", operator=" + operator + ", numOfCycles=" + numOfCycles + "}";
+        return "Ride{" +
+                "rideId='" + rideId + '\'' +
+                ", rideName='" + rideName + '\'' +
+                ", maxRider=" + maxRider +
+                ", operator=" + operator +
+                ", numOfCycles=" + numOfCycles +
+                ", waitingQueueSize=" + waitingLine.size() +
+                ", numberOfPassengersRecorded=" + rideHistory.size() +
+                '}';
+    }
+
+    // ------------------------------
+    // New: Getter for sorting Part 4B (wrapper: only necessary attributes are exposed)
+    // ------------------------------
+    public LinkedList<Visitor> getRideHistory() {
+        return rideHistory;
     }
 }
