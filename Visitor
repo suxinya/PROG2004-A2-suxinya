@@ -1,4 +1,4 @@
-public class Visitor extends Person {
+public abstract class Visitor extends Person {
     // Private unique variables
     private String visitorId;     // Unique ID of tourist
     private String membershipType;// Membership Type
@@ -32,9 +32,13 @@ public class Visitor extends Person {
         this.membershipType = membershipType;
     }
 
-    // Rewrite toString()
+    // Abstract method for implementing Person: displaying tourist information
     @Override
-    public String toString() {
-        return "Visitor{" + super.toString() + ", visitorId='" + visitorId + "', membershipType='" + membershipType + "'}";
+    public void showInfo() {
+        System.out.println("=== Tourist Information ===");
+        System.out.println("Tourist ID:" + getVisitorId());
+        System.out.println("Name:" + getName());
+        System.out.println("Age:" + getAge());
+        System.out.println("Membership type:" + getMembershipType());
     }
 }
