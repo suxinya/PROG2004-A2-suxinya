@@ -1,4 +1,4 @@
-public abstract class Employee extends Person {
+public class Employee extends Person {
     // Private unique variables
     private String employeeId; // Unique Employee ID
     private String position;   // position
