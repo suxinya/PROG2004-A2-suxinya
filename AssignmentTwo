@@ -2,7 +2,12 @@ public class AssignmentTwo {
     // Main method: Program entrance
     public static void main(String[] args) {
         System.out.println("=== PRVMS Theme Park Management System ===");
-        // We will add demonstration code to the corresponding part method every day in the future.
+        // Test employee information display
+        Employee emp = new Employee("P001", "Jack", 25, "E001", "Roller Coaster Operator");
+        emp.showInfo();
+        // Test tourist information display
+        Visitor vis = new Visitor("P002", "Luca", 20, "V001", "VIP member");
+        vis.showInfo();
     }
 
     // Part3 Waiting queue demonstration method
