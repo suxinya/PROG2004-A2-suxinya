@@ -1,0 +1,16 @@
+import java.util.Queue;
+public interface RideInterface {
+    // 1. Part3 Waiting queue related methods
+    boolean addVisitorToQueue(Visitor visitor); // Add tourists to the queue (return if successful)
+    Visitor removeVisitorFromQueue();           // Remove tourists from the queue (return the removed tourists)
+    void printQueue();                          // Print all tourists in the queue
+
+    // 2. Part4A Methods related to ride records
+    boolean addVisitorToHistory(Visitor visitor); // Add tourist to ride history
+    boolean checkVisitorFromHistory(Visitor visitor); // Check if the tourist is in the record
+    int numberOfVisitors(); // Return the number of tourists in the ride record
+    void printRideHistory(); // Print ride records
+
+    // 3. Part5 Methods related to operating cycles
+    void runOneCycle(); // Run a facility cycle once
+}
