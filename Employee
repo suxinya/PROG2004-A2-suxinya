@@ -1,4 +1,4 @@
-public class Employee extends Person {
+public abstract class Employee extends Person {
     // Private unique variables
     private String employeeId; // Unique Employee ID
     private String position;   // position
@@ -33,10 +33,13 @@ public class Employee extends Person {
         this.position = position;
     }
 
-    // Rewrite toString(): Contains parent and child class properties
+     // Abstract method for implementing Person: displaying employee information
     @Override
-    public String toString() {
-        // Call the parent class toString() to concatenate subclass properties
-        return "Employee{" + super.toString() + ", employeeId='" + employeeId + "', position='" + position + "'}";
+    public void showInfo() {
+        System.out.println("=== employee information ===");
+        System.out.println("Employee ID:" + getEmployeeId());
+        System.out.println("Name:" + getName());
+        System.out.println("Age:" + getAge());
+        System.out.println("Position:" + getPosition());
     }
 }
