@@ -2,16 +2,55 @@ public class AssignmentTwo {
     // Main method: Program entrance
     public static void main(String[] args) {
         System.out.println("=== PRVMS Theme Park Management System ===");
-        // Test employee information display
-        Employee emp = new Employee("P001", "Jack", 25, "E001", "Roller Coaster Operator");
-        emp.showInfo();
-        // Test tourist information display
-        Visitor vis = new Visitor("P002", "Luca", 20, "V001", "VIP member");
-        vis.showInfo();
+        // Call partThree to demonstrate the waiting queue function
+        AssignmentTwo demo = new AssignmentTwo();
+        demo.partThree();
     }
 
     // Part3 Waiting queue demonstration method
-    public void partThree() {}
+    public void partThree() {
+        System.out.println("\n==================== Part3 Waiting queue demonstration ====================");
+
+        // 1. Create operator（Employee）
+        Employee operator = new Employee(
+                "P001",
+                "Jack",
+                25,
+                "E001",
+                "Roller Coaster Operator"
+        );
+
+        // 2. Create a ride: Thunder Roller Coaster, with a maximum of 2 people per ride
+        Ride rollerCoaster = new Ride(
+                "RC001",
+                "Thunder roller coaster",
+                2,
+                operator
+        );
+
+        // 3. Create 5 tourists（Visitor）
+        Visitor v1 = new Visitor("P002", "Luca", 18, "V001", "Regular Member");
+        Visitor v2 = new Visitor("P003", "Max", 22, "V002", "VIP member");
+        Visitor v3 = new Visitor("P004", "Dean", 25, "V003", "Regular Member");
+        Visitor v4 = new Visitor("P005", "Anna", 19, "V004", "non-member");
+        Visitor v5 = new Visitor("P006", "Alice", 23, "V005", "VIP member");
+
+        // 4. Add 5 tourists to the queue
+        rollerCoaster.addVisitorToQueue(v1);
+        rollerCoaster.addVisitorToQueue(v2);
+        rollerCoaster.addVisitorToQueue(v3);
+        rollerCoaster.addVisitorToQueue(v4);
+        rollerCoaster.addVisitorToQueue(v5);
+
+        // 5. Print the added queue
+        rollerCoaster.printQueue();
+
+        // 6. Remove 1 tourist (team leader: Zhao Liu)
+        rollerCoaster.removeVisitorFromQueue();
+
+        // 7. Print the removed queue
+        rollerCoaster.printQueue();
+    }
 
     // Part4A Demonstration Method for Riding Record
     public void partFourA() {}
