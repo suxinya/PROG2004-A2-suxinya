@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-public abstract class Ride implements RideInterface {
+public class Ride implements RideInterface {
     // private variable
     private String rideId;       // Unique ID of the facility
     private String rideName;     // Facility Name
@@ -9,7 +9,7 @@ public abstract class Ride implements RideInterface {
     private Employee operator;   // operator
     private int numOfCycles;     // Number of cycles already run
 
-    // New: Part 3 Waiting Queue (using LinkedRist to implement Queue interface, FIFO feature)
+    // New: Part 3 Waiting Queue (using LinkedList to implement Queue interface, FIFO feature)
     private Queue<Visitor> waitingLine;
     // New: Part 4A ride records (using LinkedList, supporting Iterator traversal)
     private LinkedList<Visitor> rideHistory;
@@ -84,23 +84,45 @@ public abstract class Ride implements RideInterface {
     // ------------------------------
 
     // Part 3: Add tourists to the queue
+
     @Override
     public boolean addVisitorToQueue(Visitor visitor) {
-        //Implemented on the third day
-        return false;
+        if (visitor != null) {
+            waitingLine.offer(visitor); // Queue's offer(): Add element
+            System.out.println("Successfully added tourist to[" + rideName + "]Queue:" + visitor.getName());
+            return true;
+        } else {
+            System.out.println("Error: Unable to add empty tourists to the queue!");
+            return false;
+        }
     }
 
-    // Part 3: Removing Tourists from the Queue
     @Override
     public Visitor removeVisitorFromQueue() {
-        // Implemented on the third day
-        return null;
+        if (!waitingLine.isEmpty()) {
+            Visitor removedVisitor = waitingLine.poll(); // Poll() of Queue: Remove and return the leader of the queue
+            System.out.println("Remove tourists from queue [" + rideName + "]:" + removedVisitor.getName());
+            return removedVisitor;
+        } else {
+            System.out.println("Error: [" + rideName + "] queue is empty, unable to remove guest!");
+            return null;
+        }
     }
 
-    // Part 3: Printing queue
     @Override
     public void printQueue() {
-        // Implemented on the third day
+        System.out.println("\n=== [" + rideName + "] Waiting for queue information ===");
+        if (waitingLine.isEmpty()) {
+            System.out.println("There are currently no tourists waiting in the queue.");
+            return;
+        }
+        // traverse the queue
+        int index = 1;
+        for (Visitor visitor : waitingLine) {
+            System.out.println("Queue position" + index + "：" + visitor);
+            index++;
+        }
+        System.out.println("Total number of people in the queue:" + waitingLine.size());
     }
 
     // Part 4A: Add tourist to ride history
