@@ -5,6 +5,8 @@ public class AssignmentTwo {
         // Call partThree to demonstrate the waiting queue function
         AssignmentTwo demo = new AssignmentTwo();
         demo.partThree();
+        demo.partFourA();
+        demo.partFourB();
     }
 
     // Part3 Waiting queue demonstration method
@@ -53,10 +55,71 @@ public class AssignmentTwo {
     }
 
     // Part4A Demonstration Method for Riding Record
-    public void partFourA() {}
+    public void partFourA() {
+        System.out.println("\n==================== Part4A Ride record demonstration ====================");
+        // 1. Create operators and facilities
+        Employee operator = new Employee("P001", "Mike", 30, "E001", "Carousel operator");
+        Ride carousel = new Ride("CM001", "merry-go-round", 4, operator);
+
+        // 2. Create 5 tourists
+        Visitor v1 = new Visitor("P002", "Luca", 18, "V001", "Regular Member");
+        Visitor v2 = new Visitor("P003", "Max", 22, "V002", "VIP member");
+        Visitor v3 = new Visitor("P004", "Dean", 25, "V003", "Regular Member");
+        Visitor v4 = new Visitor("P005", "Anna", 19, "V004", "non-member");
+        Visitor v5 = new Visitor("P006", "Alice", 23, "V005", "VIP member");
+
+        // 3. Add to ride history
+        carousel.addVisitorToHistory(v1);
+        carousel.addVisitorToHistory(v2);
+        carousel.addVisitorToHistory(v3);
+        carousel.addVisitorToHistory(v4);
+        carousel.addVisitorToHistory(v5);
+
+        // 4. Check if the tourist is in the record
+        carousel.checkVisitorFromHistory(v2);
+        Visitor v6 = new Visitor("P007", "Lucy", 21, "V006", "Regular Member");
+        carousel.checkVisitorFromHistory(v6);
+
+        // 5. Count and record the number of people
+        carousel.numberOfVisitors();
+
+        // 6. print log
+        carousel.printRideHistory();
+    }
 
     // Part4B Demonstration method for sorting ride records
-    public void partFourB() {}
+    public void partFourB() {
+        System.out.println("\n==================== Part4B Demonstration of sorting of ride records ====================");
+        // 1. Create operators and facilities
+        Employee operator = new Employee("P001", "Jack", 30, "E001", "Pirate ship operator");
+        Ride pirateShip = new Ride("PS001", "Pirate Ship", 3, operator);
+
+        // 2. Create 5 tourists
+        Visitor v1 = new Visitor("P002", "Luca", 25, "V001", "Regular Member");
+        Visitor v2 = new Visitor("P003", "Max", 20, "V002", "non-member");
+        Visitor v3 = new Visitor("P004", "Dean", 18, "V003", "VIP member");
+        Visitor v4 = new Visitor("P005", "Anna", 22, "V004", "VIP member");
+        Visitor v5 = new Visitor("P006", "Alice", 23, "V005", "Regular Member");
+
+        // 3. Add to ride history
+        pirateShip.addVisitorToHistory(v1);
+        pirateShip.addVisitorToHistory(v2);
+        pirateShip.addVisitorToHistory(v3);
+        pirateShip.addVisitorToHistory(v4);
+        pirateShip.addVisitorToHistory(v5);
+
+        // 4. Print records before sorting
+        System.out.println("\n--- Boarding records before sorting ---");
+        pirateShip.printRideHistory();
+
+        // 5. Sort by custom rules
+        VisitorComparator comparator = new VisitorComparator();
+        pirateShip.sortRideHistory(comparator);
+
+        // 6. Print sorted records (expected: VIP first, same type sorted by age)
+        System.out.println("\n--- Sorted ride records ---");
+        pirateShip.printRideHistory();
+    }
 
     // Part5 Demonstration method for operating amusement equipment cycle
     public void partFive() {}
