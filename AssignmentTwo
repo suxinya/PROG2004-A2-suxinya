@@ -7,6 +7,7 @@ public class AssignmentTwo {
         demo.partThree();
         demo.partFourA();
         demo.partFourB();
+        demo.partFive();
     }
 
     // Part3 Waiting queue demonstration method
@@ -122,7 +123,63 @@ public class AssignmentTwo {
     }
 
     // Part5 Demonstration method for operating amusement equipment cycle
-    public void partFive() {}
+    public void partFive() {
+        System.out.println("\n==================== Part5 Run cycle demonstration ====================");
+        // 1. Create operator (roller coaster operator)
+        Employee operator = new Employee(
+                "P001",
+                "Jack",
+                30,
+                "E001",
+                "roller coaster operator"
+        );
+
+        // 2. Create amusement equipment: Thunder Roller Coaster
+        Ride rollerCoaster = new Ride(
+                "RC001",
+                "Thunder Roller Coaster",
+                3, // Maximum of 3 people per session
+                operator
+        );
+
+        // 3. Create 10 tourists
+        System.out.println("\n--- Batch add 10 tourists to the queue ---");
+        for (int i = 1; i <= 10; i++) {
+            Visitor visitor = new Visitor(
+                    "P" + String.format("%03d", i + 1),
+                    "tourists" + i,
+                    18 + (i % 10),
+                    "V" + String.format("%03d", i),
+                    i % 3 == 0 ? "VIP member" : (i % 3 == 1 ? "Regular Member" : "non-member")
+            );
+            rollerCoaster.addVisitorToQueue(visitor);
+        }
+
+        // 4. Print pre run queues and records
+        System.out.println("\n--- The state before the operating cycle ---");
+        System.out.println("Queue status:");
+        rollerCoaster.printQueue();
+        System.out.println("Riding record status:");
+        rollerCoaster.printRideHistory();
+
+        // 5. Run one cycle
+        rollerCoaster.runOneCycle();
+
+        // 6. Print the queue and records after running
+        System.out.println("\n--- The state after the running cycle ---");
+        System.out.println("Queue status (7 people remaining):");
+        rollerCoaster.printQueue();
+        System.out.println("Passenger record status (3 new people added):");
+        rollerCoaster.printRideHistory();
+
+        // 7. Test boundary condition: Run 3 more cycles until the queue is empty
+        System.out.println("\n--- Continuously run the cycle until the queue is empty ---");
+        rollerCoaster.runOneCycle(); // Second time: Take 3 people, leaving 4 people in the queue
+        rollerCoaster.runOneCycle(); // Third time: Take 3 people, leaving 1 person in the queue
+        rollerCoaster.runOneCycle(); // Fourth time: Take 1 person, empty queue
+        rollerCoaster.runOneCycle(); // Fifth time: Empty queue, unable to run
+    }
+
 
     // Part6 Demonstration method for exporting ride records
     public void partSix() {}
