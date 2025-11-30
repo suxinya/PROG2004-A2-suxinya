@@ -200,6 +200,36 @@ public class Ride implements RideInterface {
     // RunOneCycle() for Part 5: still occupying space
     @Override
     public void runOneCycle() {
+        System.out.println("\n=== Start running the [" + rideName + "] cycle ===");
+
+        // 1. Check if there is an operator (if there is no operator, it cannot run)
+        if (this.operator == null) {
+            System.out.println("Error: [" + rideName + "] No operator assigned, unable to run cycle!");
+            return;
+        }
+
+        // 2. Check if there are any tourists in the queue (if there are no tourists, it cannot run)
+        if (waitingLine.isEmpty()) {
+            System.out.println("Error: [" + rideName + "] Waiting queue is empty, unable to run cycle!");
+            return;
+        }
+
+        // 3. Determine the number of tourists to be collected in this cycle
+        int takeCount = Math.min(maxRider, waitingLine.size());
+        System.out.println("Passenger capacity for this cycle:" + maxRider + " people, actual queue size:" + waitingLine.size() + "people, " + takeCount + " people will be selected.");
+
+        // 4. Retrieve tourists from the queue and add them to the ride record
+        for (int i = 0; i < takeCount; i++) {
+            Visitor visitor = waitingLine.poll(); // Remove the first tourist from the team
+            if (visitor != null) {
+                rideHistory.add(visitor); // Join Record
+                System.out.println("Tourist [" + visitor. getName() + "] has taken [" + rideName + "]");
+            }
+        }
+
+        // 5. Number of update cycles
+        this.incrementCycles();
+        System.out.println("[" + rideName + "]cycle run completed! Current total number of cycles:" + this.numOfCycles);
     }
 
     // Original toString(): Add the size of the queue and records
