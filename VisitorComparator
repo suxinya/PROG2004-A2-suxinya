@@ -1,0 +1,32 @@
+import java.util.Comparator;
+public class VisitorComparator implements Comparator<Visitor> {
+    @Override
+    public int compare(Visitor v1, Visitor v2) {
+        // 1. Sort by member type first
+        String type1 = v1.getMembershipType();
+        String type2 = v2.getMembershipType();
+        int typePriority1 = getMembershipPriority(type1);
+        int typePriority2 = getMembershipPriority(type2);
+
+        if (typePriority1 != typePriority2) {
+            // Members with higher priority come first
+            return typePriority2 - typePriority1;
+        } else {
+            // 2. Members of the same type, in ascending order of age
+            return v1.getAge() - v2.getAge();
+        }
+    }
+
+    private int getMembershipPriority(String membershipType) {
+        switch (membershipType) {
+            case "VIP member":
+                return 3;
+            case "Regular Member":
+                return 2;
+            case "non-member":
+                return 1;
+            default:
+                return 0; // Unknown type has the lowest priority
+        }
+    }
+}
