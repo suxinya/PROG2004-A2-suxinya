@@ -1,6 +1,8 @@
+import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+
 public class Ride implements RideInterface {
     // private variable
     private String rideId;       // Unique ID of the facility
@@ -246,7 +248,123 @@ public class Ride implements RideInterface {
                 '}';
     }
 
-    public LinkedList<Visitor> getRideHistory() {
-        return rideHistory;
+    //Implement Part 6: Export ride records to CSV file
+    public void exportRideHistory(String filePath) {
+        System.out.println("\n=== Start exporting [" + rideName + "] ride records to file:" + filePath + " ===");
+        // 1. Check if the record is empty
+        if (rideHistory.isEmpty()) {
+            System.out.println("Error: The ride record is empty, no need to export!");
+            return;
+        }
+
+        // 2. Use try with resources: automatically close the stream
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // 3. Write CSV header
+            writer.write("personId,name,age,visitorId,membershipType");
+            writer.newLine();
+
+            // 4. Traverse ride records and write data for each row
+            Iterator<Visitor> iterator = rideHistory.iterator();
+            while (iterator.hasNext()) {
+                Visitor visitor = iterator.next();
+                // Splicing CSV rows: fields separated by commas, handling possible null values
+                String line = String.join(",",
+                        visitor.getPersonId() == null ? "" : visitor.getPersonId(),
+                        visitor.getName() == null ? "" : visitor.getName(),
+                        String.valueOf(visitor.getAge()),
+                        visitor.getVisitorId() == null ? "" : visitor.getVisitorId(),
+                        visitor.getMembershipType() == null ? "" : visitor.getMembershipType()
+                );
+                writer.write(line);
+                writer.newLine();
+            }
+
+            System.out.println("Export successful! A total of" + rideHistory.size() + "records were exported.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: The file path does not exist!" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error: IO exception, export failed!" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: Unknown exception, export failed!" + e.getMessage());
+        }
+    }
+
+    // Implementing Part 7: Importing Ride Records from CSV Files
+    public void importRideHistory(String filePath) {
+        System.out.println("\n=== Start importing ride records from file: " + filePath + " to [" + rideName + "] ===");
+        File file = new File(filePath);
+        // 1. Check if the file exists
+        if (!file.exists()) {
+            System.out.println("Error: The file does not exist!");
+            return;
+        }
+
+        // 2. Use try with resources: automatically close the stream
+        int importCount = 0; // Number of successfully imported records
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            // 3. Skip header: Read the first line and determine if it is a header
+            line = reader.readLine();
+            if (line == null) {
+                System.out.println("Error: The file is empty!");
+                return;
+            }
+            // Check if the first line is a header, if so skip it
+            if (line.contains("personId")) {
+                System.out.println("Skip CSV header:" + line);
+            } else {
+                // If the first row is not the header, process the data in that row
+                Visitor visitor = parseCsvLineToVisitor(line);
+                if (visitor != null) {
+                    rideHistory.add(visitor);
+                    importCount++;
+                }
+            }
+
+            // 4. Process remaining row data
+            while ((line = reader.readLine()) != null) {
+                Visitor visitor = parseCsvLineToVisitor(line);
+                if (visitor != null) {
+                    rideHistory.add(visitor);
+                    importCount++;
+                }
+            }
+
+            System.out.println("Import completed! A total of" + importCount + "records were imported, and the total number of passengers in the current ride record is:" + rideHistory.size());
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found!" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error: IO exception, import failed!" + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: Unknown exception, import failed!" + e.getMessage());
+        }
+    }
+
+    private Visitor parseCsvLineToVisitor(String line) {
+        try {
+            // Split CSV rows (separated by commas)
+            String[] fields = line.split(",");
+            // Check if the number of fields is correct
+            if (fields.length < 5) {
+                System.out.println("Warning: CSV row format error (insufficient fields), skip this row:" + line);
+                return null;
+            }
+
+            // Extract fields and convert types
+            String personId = fields[0].trim().isEmpty() ? "unknown" : fields[0].trim();
+            String name = fields[1].trim().isEmpty() ? "unknown tourist" : fields[1].trim();
+            int age = fields[2].trim().isEmpty() ? 0 : Integer.parseInt(fields[2].trim());
+            String visitorId = fields[3].trim().isEmpty() ? "unknown" : fields[3].trim();
+            String membershipType = fields[4].trim().isEmpty() ? "non-member" : fields[4].trim();
+
+            // Create and return Visitor object
+            return new Visitor(personId, name, age, visitorId, membershipType);
+        } catch (NumberFormatException e) {
+            System.out.println("Warning: Age format error, skip this line:" + line + ", Error:" + e.getMessage());
+            return null;
+        } catch (Exception e) {
+            System.out.println("Warning: Failed to parse CSV row, skip this row:" + line + ", Error:" + e.getMessage());
+            return null;
+        }
     }
 }
