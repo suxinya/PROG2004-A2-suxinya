@@ -8,6 +8,8 @@ public class AssignmentTwo {
         demo.partFourA();
         demo.partFourB();
         demo.partFive();
+        demo.partSix();
+        demo.partSeven();
     }
 
     // Part3 Waiting queue demonstration method
@@ -180,10 +182,54 @@ public class AssignmentTwo {
         rollerCoaster.runOneCycle(); // Fifth time: Empty queue, unable to run
     }
 
-
     // Part6 Demonstration method for exporting ride records
-    public void partSix() {}
+    public void partSix() {
+        System.out.println("\n==================== Part6 Export CSV Demo ====================");
+        // 1. Create operators and facilities
+        Employee operator = new Employee("P001", "Jack", 30, "E001", "Drift Forward Operator");
+        Ride logFlume = new Ride("LF001", "Drift Forward", 4, operator);
+
+        // 2. Add 5 tourists to the ride record
+        Visitor v1 = new Visitor("P002", "Luca", 18, "V001", "Regular Member");
+        Visitor v2 = new Visitor("P003", "Max", 22, "V002", "VIP Member");
+        Visitor v3 = new Visitor("P004", "Dean", 25, "V003", "Regular Member");
+        Visitor v4 = new Visitor("P005", "Anna", 19, "V004", "non-member");
+        Visitor v5 = new Visitor("P006", "Alice", 23, "V005", "VIP Member");
+        logFlume.addVisitorToHistory(v1);
+        logFlume.addVisitorToHistory(v2);
+        logFlume.addVisitorToHistory(v3);
+        logFlume.addVisitorToHistory(v4);
+        logFlume.addVisitorToHistory(v5);
+
+        // 3. Export to CSV file
+        String exportPath = "ride_history_lf001.csv";
+        logFlume.exportRideHistory(exportPath);
+
+        // 4. Verification: Print exported records
+        System.out.println("\n--- Exported ride records (validation data) ---");
+        logFlume.printRideHistory();
+    }
 
     // Part7 Demonstration method for importing ride records
-    public void partSeven() {}
+    public void partSeven() {
+        System.out.println("\n==================== Part7 Import CSV Demo ====================");
+        // 1. Create new facilities
+        Employee operator = new Employee("P007", "Lucy", 28, "E002", "Drift Forward Operator");
+        Ride logFlumeNew = new Ride("LF002", "New rapids advance bravely", 4, operator);
+
+        // 2. Print the record before import (should be empty)
+        System.out.println("--- Passenger record before import (empty) ---");
+        logFlumeNew.printRideHistory();
+
+        // 3. Import CSV file exported from Part 6
+        String importPath = "ride_history_lf001.csv";
+        logFlumeNew.importRideHistory(importPath);
+
+        // 4. Print the imported records
+        System.out.println("\n--- Imported ride records (validation data) ---");
+        logFlumeNew.printRideHistory();
+
+        // 5. Count the number of people after importing
+        logFlumeNew.numberOfVisitors();
+    }
 }
